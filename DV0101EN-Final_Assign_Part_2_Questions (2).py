@@ -86,8 +86,8 @@ def update_output_container(selected_statistics,input_year):
         R_chart1 = dcc.Graph(
             figure=px.line(yearly_rec, 
                 x='Year',
-                y='Automoile_Sales',
-                title="Average Automobile Sales fluctuation over Recession Period"))
+                y='Automobile_Sales',
+                title="Average Automobile Sales fluctuation over Recession Period")),
 
 #Plot  2 Calculate the average number of vehicles sold by vehicle type       
         # use groupby to create relevant data for plotting
@@ -120,7 +120,8 @@ def update_output_container(selected_statistics,input_year):
             ]
 
 # TASK 2.6: Create and display graphs for Yearly Report Statistics
- # Yearly Statistic Report Plots                             
+ # Yearly Statistic Report Plots
+
     elif (input_year and selected_statistics=='Yearly Statistics') :
         yearly_data = data[data['Year'] == yearly_data]
                               
@@ -158,28 +159,6 @@ def update_output_container(selected_statistics,input_year):
     elif (input_year and selected_statistics=='Yearly Statistics') :
         yearly_data = data[data['Year'] == yearly_data]
                               
-..........
-# Plot 1 :Yearly Automobile sales using line chart for the whole period.
-............
-        yas= data.groupby('Year')['Automobile_Sales'].mean().reset_index()
-        Y_chart1 = dcc.Graph(figure=px.line((line_chart = px.line(yas, x='Year', y='Automobile_Sales', title='Yearly Automobile Sales')
-)))
-            
-
-# Plot 2 :Total Monthly Automobile sales using line chart.
-
-
-
-
-# Plot bar chart for average number of vehicles sold during the given year
-
-  
-avr_vdata=yearly_data.groupby('Vehicle_Type')['Automobile_Sales'].mean().reset_index()
-Y_chart3 = dcc.Graph( figure px.bar(avr_vdata_year, x='Vehicle_Type', y='Number_of_Vehicles',title='Average Vehicles Sold by Vehicle Type in the year {}'.format(input_year)))
-
-
-# Plot 4 Total Advertisement Expenditure for each vehicle using pie chart
-
 return [
     html.Div(className='chart-item', children=[html.Div(children=Y_chart1), html.Div(children=Y_chart2)], style={'display': 'flex', 'flex-direction': 'row'}),
     html.Div(className='chart-item', children=[html.Div(children=Y_chart3), html.Div(children=Y_chart4)], style={'display': 'flex', 'flex-direction': 'row'})
@@ -191,5 +170,6 @@ return [
 # Run the Dash app
 if __name__ == '__main__':
     app.run_server
+    
     
     
