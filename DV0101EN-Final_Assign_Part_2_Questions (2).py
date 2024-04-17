@@ -122,19 +122,25 @@ def update_output_container(selected_statistics,input_year):
 # TASK 2.6: Create and display graphs for Yearly Report Statistics
  # Yearly Statistic Report Plots
 
-    elif (input_year and selected_statistics=='Yearly Statistics') :
+    if (input_year and selected_statistics=='Yearly Statistics') :
         yearly_data = data[data['Year'] == yearly_data]
                               
 #TASK 2.5: Creating Graphs Yearly data
                               
 #plot 1 Yearly Automobile sales using line chart for the whole period.
         yas= data.groupby('Year')['Automobile_Sales'].mean().reset_index()
-        Y_chart1 = (line_chart = px.line(yas, x='Year', y='Automobile_Sales', title='Yearly Automobile Sales')
-))
+        Y_chart1 =dcc.Graph(figure= px.line(yas,
+        x='Year', 
+        y='Automobile_Sales', 
+        title='Yearly Automobile Sales'))
+
             
 # Plot 2 Total Monthly Automobile sales using line chart.
-        Y_chart2 = (line_chart = px.line(mas, x='Total_Monthly', y='Automobile_Sales', title='Total monthly Automobile Sales')
-))
+        Y_chart2 = dcc.Graph(figure=px.line(mas, 
+        x='Total_Monthly', 
+        y='Automobile_Sales', 
+        title='Total monthly Automobile Sales')
+)
 
             # Plot bar chart for average number of vehicles sold during the given year
         avr_vdata=yearly_data.groupby('Vehicle_Type')['Number_of_Vehicles'].mean().reset_index()
@@ -143,16 +149,12 @@ def update_output_container(selected_statistics,input_year):
 
             # Total Advertisement Expenditure for each vehicle using pie chart
         exp_data=yearly_data.groupby('Vehicle_Type')['Advertisement_Expenditure'].sum()
-        Y_chart4 = dcc.Graph'data': [
-            {
-                'labels': exp_data.index,
-                'values': exp_data.values,
-                'type': 'pie'
-            }
-        ],
-        'layout': {
-            'title': 'Total Advertisement Expenditure for each Vehicle'
-        }
+        Y_chart4 = dcc.Graph(figure=px.pie(exp_data,
+        values='Advertisement_Expenditure',
+        names='Vehichle_Type',
+        title='Total Advertisement Expenditure for each Vehicle')
+        )
+           
 
 #TASK 2.6: Returning the graphs for displaying Yearly data
         # Yearly Statistic Report Plots                             
@@ -170,6 +172,5 @@ return [
 # Run the Dash app
 if __name__ == '__main__':
     app.run_server
-    
     
     
